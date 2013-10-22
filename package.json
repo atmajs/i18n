@@ -1,0 +1,19 @@
+{
+    "name": "atma-localization",
+    "description": "Atma Localization Module",
+    "author": {
+        "name": "Alexander Kit",
+        "email": "alex.kit@atmajs.com"
+    },
+    "version": "0.0.55",
+    "main": "./lib/localization.js",
+    "repository": {},
+    "license": "MIT",
+    "devDependencies": {
+        "atma-libs": ">0.0.0"
+    },
+    "scripts" : {
+        "test" : "node_modules/.bin/atma test"
+    },
+
+}

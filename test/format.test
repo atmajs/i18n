@@ -1,0 +1,20 @@
+include
+	.inject(
+		'/src/format/parse.js',
+		'/src/format/build.js',
+		'/src/format/type.js',
+		'/src/format/format.js'
+	)
+	.done(function(){
+		
+		
+		UTest({
+			
+			'simple': function(){
+				
+				eq(format('Name {0}!', 'bar'), 'Name bar!');
+				eq(format('Name {1}-{0}!', 'bar', 'foo'), 'Name foo-bar!');
+				eq(format('Name {1}-{0}-{1}!', 'bar', 'foo'), 'Name foo-bar-foo!');
+			}
+		})
+	})
