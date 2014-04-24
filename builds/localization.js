@@ -8,12 +8,11 @@
 		_global = _exports = global;
 	}
 	
-	if (_global == null) {
+	if (_global == null) 
 		_global = typeof window === 'undefined' ? global : window;
-	}
-	if (_exports == null) {
+	
+	if (_exports == null) 
 		_exports = root || _global;
-	}
 	
 	
 	factory(_global, _exports);
@@ -21,21 +20,18 @@
 }(this, function(global, exports){
 	"use strict";
 	
+	// import /src/vars.js
+	// import /src/dependency.js
 	
+	// import /src/util/rgx.js
+	// import /src/util/detect.js
 	
-	// import ../src/dependency.js
-	// import ../src/vars.js
+	// import /src/localizer/localizer.js
+	// import /src/localizer/browser.js
+	// import /src/localizer/node.js
 	
-	// import ../src/util/rgx.js
-	// import ../src/util/detect.js
-	
-	// import ../src/format/format.js
-	// import ../src/localizer/localizer.js
-	// import ../src/localizer/browser.js
-	// import ../src/localizer/node.js
-	
-	// import ../src/loader.js
-	// import ../src/L.js
+	// import /src/loader.js
+	// import /src/L.js
 	
 	
 	

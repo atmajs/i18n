@@ -4,18 +4,11 @@ var $L = is_NODE
 	: BrowserLocalizer
 	;
 
-mask.registerUtil('L', is_NODE
-	? L_util_NODE
-	: L_util_BROWSER
-);
-
-
-function L_util_NODE(key, model, ctx){
+if (mask != null) {
+	// import L.util.js
 	
-	return $L(ctx.req, key, model);
-}
-
-function L_util_BROWSER(key, model){
-	
-	return $L(key, model);
+	mask.registerUtil('L', is_NODE
+		? L_util_NODE
+		: L_util_BROWSER
+	);
 }

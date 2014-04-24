@@ -1,40 +1,68 @@
-function detect_fromBrowser(){
+var detect_fromBrowser,
+	detect_fromRequest
+	;
 	
-	var lang = rgx_find(global.location.search, /language=(\w+)/, 1);
-	
-	
-	if (lang == null)
-		lang = rgx_find(global.navigator.language, /^(\w+)/, 1);
-	
-	lang = lang.toLowerCase();
+(function(){
 
-	if (lang_SUPPORT.indexOf(lang) === -1)
-		lang = lang_SUPPORT[0];
+	detect_fromBrowser = function(){
 		
-	return lang;
-}
-
-function detect_fromRequest(req){
-	// en-US,en;q=0.8,ru;q=0.6,de;q=0.4
-	var langs = req.getHeader('Accept-Language');
-	
-	if (!langs) 
-		return lang_SUPPORT[0];
-	
-	langs = langs.replace(/\s*/g, '');
-	
-	var array = langs.split(','),
-		lang;
-	
-	for (var i = 0, imax = array.length; i < imax; i++){
+		var lang = fromSearch(global.location.search);
+		if (lang == null)
+			lang = rgx_find(global.navigator.language, /^(\w+)/, 1);
 		
-		lang = array[i].split(';')[0];
+		lang = lang.toLowerCase();
+		return has(lang)
+			? lang
+			: lang_SUPPORT[0];
+	};
+	
+	detect_fromRequest = function(req){
+		// en-US,en;q=0.8,ru;q=0.6,de;q=0.4
+		var queryIndex = req.url.indexOf('?'),
+			lang, langs;
 		
-		if (lang_SUPPORT.indexOf(lang) !== -1) {
+		if (queryIndex !== -1) {
+			var search = req.url.substring(req.url);
 			
-			return lang;
+			lang = fromSearch(search);
+			if (has(lang)) 
+				return lang;
 		}
+		
+		langs = req.getHeader('Accept-Language');
+		if (!langs) 
+			return lang_SUPPORT[0];
+		
+		langs = langs
+			.replace(/\s*/g, '')
+			.toLowerCase();
+		
+		var array = langs.split(','),
+			imax = array.length,
+			i = -1,
+			index, x;
+			
+		while (++i < imax){
+			x = array[i];
+			index = x.indexOf(';');
+			lang = index === -1
+				? x
+				: x.substring(0, index);
+				
+			if (has(lang)) 
+				return lang;
+		}
+		
+		return lang_SUPPORT[0];
+	};
+	
+	// private
+	function has(lang){
+		return lang_SUPPORT.indexOf(lang) !== -1;
 	}
 	
-	return lang_SUPPORT[0];
-}
+	function fromSearch(search){
+		return rgx_find(search, /language=(\w+)/, 1);
+	}
+	
+}());

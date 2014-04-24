@@ -1,7 +1,7 @@
 Atma Localization Module for Node.js and Browser
 ----
 
-- Maskjs Localization Util
+- [MaskJS](https://github.com/atmajs/MaskJS) Localization Util
 - Localization Function
 
 #### Node.js

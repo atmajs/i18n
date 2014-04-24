@@ -1,19 +1,30 @@
 {
-    "name": "atma-localization",
-    "description": "Atma Localization Module",
+    "name": "atma-i18n",
+    "description": "Localization Module",
     "author": {
-        "name": "Alexander Kit",
+        "name": "Alex Kit",
         "email": "alex.kit@atmajs.com"
     },
     "version": "0.0.55",
     "main": "./lib/localization.js",
-    "repository": {},
-    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/atmajs/i18n.git"
+    },
+    "bugs": {
+        "url": "https://github.com/atmajs/MaskJS/issues"
+    },
+    "licenses": [
+        "MIT"
+    ],
+    
     "devDependencies": {
-        "atma-libs": ">0.0.0"
+        "atma": "latest"
     },
-    "scripts" : {
-        "test" : "node_modules/.bin/atma test"
+    "dependencies": {
+        "atma-formatter": "~0.8.2"
     },
-
+    "scripts": {
+        "test": "node_modules/.bin/atma test"
+    }
 }

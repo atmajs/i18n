@@ -1,37 +1,45 @@
-var localizer_create = (function(Languages){
-		
-	var _cache = {};
+var localizer_create;
+
+(function(Languages){
 	
-	
-	function localizer(lang){
-		
-		var translation = Languages[lang];
-		if (translation == null) {
-			console.error('<localization> Translation is not defined for', lang);
-		}
-		
-		return function(key /* ... */){
-			
-			if (translation == null) 
-				return key;
-			
-			var str = translation[key];
-			if (str == null) {
-				
-				console.error('<localization> No translation for', key);
-				return key;
-			}
-			
-			
-			return format(str, arguments);
-		};
-	}
-	
-	return function(lang) {
+	localizer_create = function(lang) {
 		
 		return _cache[lang] == null 
 			? (_cache[lang] = localizer(lang))
 			: _cache[lang]
 			;
 	};
+	
+	// private
+	
+	var _cache = {};
+	
+	function localizer(lang){
+		
+		var translation = Languages[lang];
+		if (translation == null) 
+			console.error('<localization> Translation is not defined for', lang);
+		
+		return function(key /* ... */){
+			
+			var str = translation == null
+					? key
+					: translation[key],
+				args
+				;
+			
+			if (str == null) {
+				console.error('<localization> No translation for', key);
+				str = key;
+			}
+			
+			if (arguments.length === 1)
+				return str;
+			
+			// format string
+			args = _Array_slice.call(arguments);
+			args[0] = str;
+			return __format.apply(null, args);
+		};
+	}
 }(Languages));

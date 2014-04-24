@@ -1,12 +1,12 @@
 
-var is_NODE = typeof document === 'undefined',
+var _Array_slice = Array.prototype.slice,
+
+	is_NODE = typeof document === 'undefined',
 	lang_SUPPORT = ['en'],
-	
 	include_PATH = '/localization/%%.json'
 	;
-	
-var Languages = {},
 
+var Languages = {},
 	params = include.route.params;
 
 if (params){
