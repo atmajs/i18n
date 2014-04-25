@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head></head>
+	<body>
+		
+		<p>
+			Browser language | overridden one :
+			<h4>
+				<a href='?language=en'> en </a> 
+				<a href='?language=de'> de </a> 
+				<a href='?language=ru'> ru </a>
+			</h4>
+		</p>
+		
+		<script src='node_modules/atma-formatter/lib/format.js'></script>
+		<script src='../lib/localization.js'></script>
+		<script>
+			$L.load({
+				path: '/examples/lang/%%.json',
+				support: ['en', 'de', 'ru']
+			}, function(){
+				document.body.insertAdjacentHTML('beforeend', $L('hello'));
+			});
+		</script>
+	</body>
+</html>

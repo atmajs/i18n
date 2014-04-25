@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<body>
+		
+		<p>
+			Browser language | overridden one :
+			<h4>
+				<a href='?language=en'> en </a> 
+				<a href='?language=de'> de </a> 
+				<a href='?language=ru'> ru </a>
+			</h4>
+		</p>
+		
+		<script src='node_modules/atma-libs/browser/globals-dev.js'></script>
+		<script src='node_modules/atma-formatter/lib/format.js'></script>
+		<script>
+			
+			include
+				.js('../lib/localization.js?path=/examples/lang/%%.json&support=en,ru,de')
+				.done(function(){
+					
+					var tmpl = '\
+							.hello > "~[L:hello]" \
+							.date > "~[L:year, date]" \
+							.same > "~[L:none {0}?, 10]" \
+							.same > "~[L:\'none {0:,0.}?\', x]" \
+						',
+						model = {
+							date: new Date(2014, 0, 1),
+							x: 10
+						};
+					
+					var fragment = mask.render(tmpl, model);
+					document.body.appendChild(fragment);
+				});
+		</script>
+	</body>
+</html>

@@ -23,19 +23,22 @@
 	// import /src/vars.js
 	// import /src/dependency.js
 	
+	// import /src/util/obj.js
 	// import /src/util/rgx.js
+	// import /src/util/log.js
 	// import /src/util/detect.js
+	// import /src/util/lang.js
+	// import /src/sources/exports.js
 	
 	// import /src/localizer/localizer.js
 	// import /src/localizer/browser.js
 	// import /src/localizer/node.js
 	
-	// import /src/loader.js
 	// import /src/L.js
 	
 	
 	
-	loader_load();
+	lang_tryLoad();
 	exports.$L = $L;
 	
 }));

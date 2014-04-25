@@ -4,28 +4,40 @@
  *	: Browser - load browser language only or default
  *
  *	@param path {String} e.g. '/localization/%%.json'
- *	@param supported {Array<String>} lang iso codes
  *	
  *	export lang(s) to `Languages`
  */
-Sources['file'] = function(path, supported){
+Sources['file'] = function(path, callback){
 	
+	
+	if (include == null && is_NODE === false) {
+		var lang = detect_fromBrowser(),
+			url = path.replace('%%', lang);
+		xhr(url, function(response){
+			lang_extend(lang, response);
+			callback();
+		});
+		
+		return;
+	}
 	
 	return include
-		.ajax(loader_getPaths())
+		.ajax(getPaths())
 		.done(function(resp) {
 			
 			for (var key in resp.ajax){
-				Languages[key] = resp.ajax[key];
+				lang_extend(key, resp.ajax[key]);
 			}
+			
+			callback && callback();
 		});
 	
 	
-	function loader_getPaths(){
+	function getPaths(){
 		if (is_NODE) {
 			var paths = [];
 			
-			supported.forEach(function(lang, index){
+			lang_SUPPORT.forEach(function(lang, index){
 				paths[index] = path.replace('%%', lang);
 			});
 			
@@ -33,5 +45,26 @@ Sources['file'] = function(path, supported){
 		} 
 			
 		return [path.replace('%%', detect_fromBrowser())];
+	}
+	
+	function xhr(path, callback){
+		
+		var req = new XMLHttpRequest();
+		req.onload = function reqListener () {
+			
+			var json;
+			try {
+				json = JSON.parse(req.responseText);
+			}
+			catch(error){
+				log_error('Should be json', error);
+			}
+			finally {
+				callback(json);
+			}
+		}
+		
+		req.open("get", path, true);
+		req.send();
 	}
 };

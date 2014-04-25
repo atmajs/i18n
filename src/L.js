@@ -12,3 +12,6 @@ if (mask != null) {
 		: L_util_BROWSER
 	);
 }
+
+
+$L.load = SourceFactory.load;

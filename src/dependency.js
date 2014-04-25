@@ -1,7 +1,7 @@
 	
 var atma = global.atma || global;
 
-if (atma.mask == null) 
+if (atma.mask == null && is_NODE) 
 	atma = require('atma-libs/exports');
 
 var mask = atma.mask,
@@ -10,7 +10,7 @@ var mask = atma.mask,
 
 
 // atma-formatter
-var __format = is_Node
+var __format = is_NODE
 	? require('atma-formatter')
 	: window.Formatter || (mask && mask.$utils.format)
 	;

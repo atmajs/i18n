@@ -11,7 +11,7 @@ var detect_fromBrowser,
 			lang = rgx_find(global.navigator.language, /^(\w+)/, 1);
 		
 		lang = lang.toLowerCase();
-		return has(lang)
+		return lang_contains(lang)
 			? lang
 			: lang_SUPPORT[0];
 	};
@@ -25,7 +25,7 @@ var detect_fromBrowser,
 			var search = req.url.substring(req.url);
 			
 			lang = fromSearch(search);
-			if (has(lang)) 
+			if (lang_contains(lang)) 
 				return lang;
 		}
 		
@@ -49,7 +49,7 @@ var detect_fromBrowser,
 				? x
 				: x.substring(0, index);
 				
-			if (has(lang)) 
+			if (lang_contains(lang)) 
 				return lang;
 		}
 		
@@ -57,9 +57,6 @@ var detect_fromBrowser,
 	};
 	
 	// private
-	function has(lang){
-		return lang_SUPPORT.indexOf(lang) !== -1;
-	}
 	
 	function fromSearch(search){
 		return rgx_find(search, /language=(\w+)/, 1);

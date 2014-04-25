@@ -1,20 +1,6 @@
 
 var _Array_slice = Array.prototype.slice,
 
-	is_NODE = typeof document === 'undefined',
-	lang_SUPPORT = ['en'],
-	include_PATH = '/localization/%%.json'
+	is_NODE = typeof document === 'undefined'
 	;
-
-var Languages = {},
-	params = include.route.params;
-
-if (params){
-	
-	if (params.path) 
-		include_PATH = params.path;
-	
-	if (params.support) 
-		lang_SUPPORT = params.support.split(',');
-}
 

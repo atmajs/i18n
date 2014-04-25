@@ -1,0 +1,4 @@
+{
+	"hello": "Hello",
+	"year": "Year: {0:yyyy}!"
+}
