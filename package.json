@@ -24,7 +24,7 @@
     "atma-formatter": "~0.8.6"
   },
   "scripts": {
-    "examples_prepair":  "cd examples && npm install && npm install atma -g",
+    "examples_prepair":  "cd examples && npm install",
     "test": "node node_modules/atma/atma test"
   }
 }
