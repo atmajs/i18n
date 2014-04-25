@@ -1,5 +1,7 @@
 Atma Localization Module for Node.js and Browser
 ----
+[![Build Status](https://travis-ci.org/atmajs/i18n.svg?branch=master)](https://travis-ci.org/atmajs/i18n)
+
 
 - [MaskJS](https://github.com/atmajs/MaskJS) Localization Util
 - Localization Function

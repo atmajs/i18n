@@ -1,3 +1,7 @@
+UTest.cfg({
+	timeout: 5000
+});
+
 UTest({
 	'simple: en': function(done){
 		check('en', 'Hello', done);
