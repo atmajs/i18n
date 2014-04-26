@@ -1,7 +1,3 @@
-UTest.cfg({
-	timeout: 5000
-});
-
 UTest({
 	'simple: en': function(done){
 		check('en', 'Hello', done);
@@ -10,9 +6,10 @@ UTest({
 		check('de', 'Hallo', done);
 	},
 	'simple: ru': function(done){
+		
 		check('ru', 'Привет', done);
 	}
-})
+});
 
 function check(lang, expect, done){
 	UTest

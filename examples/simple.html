@@ -12,15 +12,23 @@
 			</h4>
 		</p>
 		
-		<script src='node_modules/atma-formatter/lib/format.js'></script>
+		<script src='../node_modules/atma-formatter/lib/format.js'></script>
 		<script src='../lib/localization.js'></script>
 		<script>
+			setTimeout(function(){
+				console.log(window.location.href, "frominside <<<<1");
+				window.history.pushState({}, 'Title', "/some?baz");
+				console.log(window.location.href, "frominside <<<<2");
+			},2000);
+			
 			$L.load({
 				path: '/examples/lang/%%.json',
 				support: ['en', 'de', 'ru']
 			}, function(){
 				document.body.insertAdjacentHTML('beforeend', $L('hello'));
 			});
+			
+			
 		</script>
 	</body>
 </html>
