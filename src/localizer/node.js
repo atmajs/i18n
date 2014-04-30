@@ -6,11 +6,11 @@ function NodeLocalizer(){
 }
 
 NodeLocalizer.fromReq = function(req){
-	if (req.localizer) 
-		return req.localizer;
+	if (req.$L) 
+		return req.$L;
 	
 	var lang = detect_fromRequest(req),
 		localizer = localizer_create(lang)
 		;
-	return req.localizer = localizer;
+	return req.$L = localizer;
 };

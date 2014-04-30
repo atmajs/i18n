@@ -20,7 +20,7 @@ var localizer_create;
 		if (translation == null) 
 			console.error('<localization> Translation is not defined for', lang);
 		
-		return function(key /* ... */){
+		var fn = function(key /* ... */){
 			
 			var str = translation == null
 					? key
@@ -41,5 +41,10 @@ var localizer_create;
 			args[0] = str;
 			return __format.apply(null, args);
 		};
+		
+		// properties
+		fn.lang = lang;
+		
+		return fn;
 	}
 }(Languages));

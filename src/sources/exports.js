@@ -28,6 +28,31 @@ var SourceFactory;
 			
 			console.error('Unknown source', config);
 			return null;
+		},
+		
+		loadSingle: function(req, config, callback){
+			if (config.support) 
+				lang_SUPPORT = config.support;
+			
+			var lang = detect_fromRequest(req);
+			if (lang_contains(lang)) {
+				callback($L.fromReq(req));
+				return;
+			}
+			
+			if (config.path) {
+				this.load({
+					path: config.path.replace('%%', lang)
+				}, onComplete);
+				
+				return;
+			}
+			
+			console.error('<Single Load: implemented `config.path` only>');
+			
+			function onComplete() {
+				callback($L.fromReq(req));
+			}
 		}
 	};
 }());

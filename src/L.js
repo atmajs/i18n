@@ -15,3 +15,4 @@ if (mask != null) {
 
 
 $L.load = SourceFactory.load;
+$L.loadSingle = SourceFactory.loadSingle;

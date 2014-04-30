@@ -15,6 +15,10 @@ include
 			'simple': function(){
 				
 				eq_($L.fromReq(req)('foo'), 'Bar');
+				
+				is_(req.$L, 'Function');
+				eq_(req.$L, $L.fromReq(req));
+				
 				eq_($L.fromReq(req)('foo-num', 10), 'Bar 10!');
 			},
 			
