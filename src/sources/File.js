@@ -7,44 +7,54 @@
  *	
  *	export lang(s) to `Languages`
  */
-Sources['file'] = function(path, callback){
-	
-	
-	if (include == null && is_NODE === false) {
-		var lang = detect_fromBrowser(),
-			url = path.replace('%%', lang);
-		xhr(url, function(response){
-			lang_extend(lang, response);
-			callback();
-		});
+
+(function(){
+
+	Sources['file'] = {
+		single: function(isoCode, path, callback){
 		
-		return;
-	}
-	
-	return include
-		.ajax(getPaths())
-		.done(function(resp) {
-			
-			for (var key in resp.ajax){
-				lang_extend(key, resp.ajax[key]);
-			}
-			
-			callback && callback();
-		});
-	
-	
-	function getPaths(){
-		if (is_NODE) {
-			var paths = [];
-			
-			lang_SUPPORT.forEach(function(lang, index){
-				paths[index] = path.replace('%%', lang);
+			loadTranslation(path, function(data){
+				lang_extend(isoCode, data);
+				callback();
 			});
 			
-			return paths;
-		} 
+		},
+		/**
+		 * - patter: e.g. '/localization/%%.json'
+		 */
+		many: function(pattern, langs, callback){
+			var count = langs.length,
+				max = count,
+				i = -1;
 			
-		return [path.replace('%%', detect_fromBrowser())];
+			while (++i < max) {
+				
+				this.single(
+					langs[i],
+					pathGlob.replace('%%', langs[i]),
+					onComplete
+				);
+			}
+			function onComplete(){
+				--count < 0 && callback();
+			}
+		}
+	};
+	
+	
+	function loadTranslation(url, callback){
+		if (include == null && is_Browser) {
+			xhr(url, function(response){
+				callback(response);
+			});
+			return;
+		}
+		
+		include
+			.ajax(url + '::Data')
+			.done(function(resp) {
+				callback(resp.ajax.Data);
+			});
 	}
 	
 	function xhr(path, callback){
@@ -67,4 +77,6 @@ Sources['file'] = function(path, callback){
 		req.open("get", path, true);
 		req.send();
 	}
-};
+	
+	
+}());

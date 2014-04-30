@@ -21,12 +21,14 @@
 				console.log(window.location.href, "frominside <<<<2");
 			},2000);
 			
-			$L.load({
-				path: '/examples/lang/%%.json',
-				support: ['en', 'de', 'ru']
-			}, function(){
-				document.body.insertAdjacentHTML('beforeend', $L('hello'));
-			});
+			$L
+				.loadSingle({
+					path: '/examples/lang/%%.json',
+					support: ['en', 'de', 'ru']
+				})
+				.done(function(){
+					document.body.insertAdjacentHTML('beforeend', $L('hello'));
+				});
 			
 			
 		</script>

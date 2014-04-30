@@ -1,6 +1,5 @@
-var Languages = {},
+var languages = {},
 	lang_SUPPORT = ['en']
-	//-lang_PATH = '/localization/%%.json'
 	;
 	
 var lang_extend,
@@ -8,17 +7,21 @@ var lang_extend,
 	lang_tryLoad
 	;
 
-(function(Languages){
+(function(languages){
 	lang_contains = function(isoCode) {
 		return lang_SUPPORT.indexOf(isoCode) !== -1;
 	};
 	
 	lang_extend = function(isoCode, translations){
+		if (translations == null) 
+			return;
 		
-		if (Languages[isoCode] == null) 
-			return Languages[isoCode] = translations;
+		if (languages[isoCode] == null) {
+			languages[isoCode] = translations;
+			return;
+		}
 			
-		return obj_extend(Languages[isoCode], translations);
+		obj_extend(languages[isoCode], translations);
 	};
 	
 	
@@ -32,15 +35,22 @@ var lang_extend,
 		if (params.support) 
 			lang_SUPPORT = params.support.split(',');
 		
-		var config = { supported: lang_SUPPORT }
-		if (params.path || params.directory){ 
-			config.path = params.path;
-			config.directory = params.directory;
+		var path = params.path;
+		if (path){ 
+			if (is_Browser) {
+				SourceFactory
+					.loadSingle({ path: path })
+					.done(callback);
+				return;
+			}
 			
-			SourceFactory.load(config, callback);
+			SourceFactory
+				.loadAll({ path: path })
+				.done(callback);
 			return;
 		}
+		
 		callback && callback();
 	};
 	
-}(Languages));
+}(languages));

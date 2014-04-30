@@ -1,6 +1,6 @@
 var localizer_create;
 
-(function(Languages){
+(function(languages){
 	
 	localizer_create = function(lang) {
 		
@@ -16,7 +16,7 @@ var localizer_create;
 	
 	function localizer(lang){
 		
-		var translation = Languages[lang];
+		var translation = languages[lang];
 		if (translation == null) 
 			console.error('<localization> Translation is not defined for', lang);
 		
@@ -47,4 +47,4 @@ var localizer_create;
 		
 		return fn;
 	}
-}(Languages));
+}(languages));

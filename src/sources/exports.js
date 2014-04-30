@@ -7,52 +7,72 @@ var SourceFactory;
 	// import Directory.js
 	//- import Mongo.js
 	
+	var sources__ = {};
+	
 	SourceFactory = {
-		/* { path|mongo, support } */
-		load: function(config, callback){
-			
+		
+		loadAll: function(config){
 			if (config.support) 
 				lang_SUPPORT = config.support;
 			
-			if (config.path) {
-				if (is_NODE === false || config.path.indexOf('%%') !== -1) 
-					return Sources.file(config.path, callback);
+			var count = lang_SUPPORT.length,
+				imax = count,
+				i = -1;
 			
-				return Sources.directory(config.path, callback);
+			while( ++i < imax){
+				
+				config.lang = lang_SUPPORT[i];
+				logger.log(config);
+				this
+					.loadSingle(config)
+					.done(onComplete)
 			}
 			
-			if (config.mongo) {
-				throw Error('i18n Mongosource not implemented');
-				return Sources.mongo(config.mongo);
+			var dfr = new Deferred;
+			function onComplete(){
+				--count < 0 && dfr.resolve();
 			}
 			
-			console.error('Unknown source', config);
-			return null;
+			return dfr;
 		},
 		
-		loadSingle: function(req, config, callback){
+		/*
+		 * @param config:
+		 * 		{ path<Url||%%-Pattern>, ?support<Array>, ?lang }
+		 * @param mix:
+		 *  - NodeJS: req
+		 *  - Browser: null
+		 *
+		 * @returns Deferred
+		 */
+		loadSingle: function(config, mix){
 			if (config.support) 
 				lang_SUPPORT = config.support;
 			
-			var lang = detect_fromRequest(req);
-			if (lang_contains(lang)) {
-				callback($L.fromReq(req));
-				return;
+			var lang = config.lang,
+				path = config.path;
+			
+			if (lang == null) {
+				lang = is_Node
+					? detect_fromRequest(mix)
+					: detect_fromBrowser()
+					;
 			}
 			
-			if (config.path) {
-				this.load({
-					path: config.path.replace('%%', lang)
-				}, onComplete);
+			if (path) {
+				if (path.indexOf('%%')) 
+					path = path.replace('%%', lang);
 				
-				return;
+				if (sources__[path]) 
+					return sources__[path];
+				
+				var dfr = sources__[path] = new Deferred;
+				
+				Sources.file.single(lang, path, dfr.resolveDelegate());
+				return dfr;
 			}
 			
-			console.error('<Single Load: implemented `config.path` only>');
-			
-			function onComplete() {
-				callback($L.fromReq(req));
-			}
+			log_error('<Single Load: implemented `config.path` only>');
 		}
 	};
 }());

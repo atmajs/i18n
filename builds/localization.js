@@ -9,15 +9,22 @@
 	}
 	
 	if (_global == null) 
-		_global = typeof window === 'undefined' ? global : window;
+		_global = typeof window === 'undefined'
+			? global
+			: window
+			;
 	
 	if (_exports == null) 
 		_exports = root || _global;
 	
 	
-	factory(_global, _exports);
+	global.$L = factory(_global, _exports);
 	
-}(this, function(global, exports){
+	if (typeof module !== 'undefined')
+		module.exports = global.$L;
+		
+	
+}(this, function(global){
 	"use strict";
 	
 	// import /src/vars.js
@@ -28,6 +35,8 @@
 	// import /src/util/log.js
 	// import /src/util/detect.js
 	// import /src/util/lang.js
+	// import /src/util/Deferred.js
+	
 	// import /src/sources/exports.js
 	
 	// import /src/localizer/localizer.js
@@ -39,6 +48,5 @@
 	
 	
 	lang_tryLoad();
-	exports.$L = $L;
-	
+	return $L;
 }));
