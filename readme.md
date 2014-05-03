@@ -30,7 +30,7 @@ Refer to the `atma-formatter`.
 _Example:_
 ```scss
 	header > '~[L:welcomeId, name]'
-	// same es
+	// same as
 	header > '~[L:"welcomeId", name]'
 ```
 ```javascript
