@@ -1,4 +1,4 @@
-Atma Localization Module for Node.js and Browser
+### Localization Module (_NodeJS and Browser_)
 ----
 [![Build Status](https://travis-ci.org/atmajs/i18n.svg?branch=master)](https://travis-ci.org/atmajs/i18n)
 
@@ -7,75 +7,79 @@ Atma Localization Module for Node.js and Browser
 - Localization Function
 
 #### Node.js
-Resolves language from current request like a middleware. If language not supported default language is taken.
+Resolves language from current request _(middleware)_
 
 #### Browser
 Resolves language from ```navigator.language``` or ```location.query ('/?language=en') ```
 
-### Translations
+>  If the language is not supported, the default one is taken.
 
-For now, file with translations is of a json format: ``` { id: translation } ```. And default path to it is ``` /localization/%ISO_CODE%.json```
+#### Formatter
+[Atma-Formatter](https://github.com/atmajs/util-format) is used to format/interpolate strings.
 
+#### Pluralization
+Refer to the `atma-formatter`.
 
-### Util
+#### Usage
+
+##### Mask Util
 
 - simple,  ```~[L:id]```
 - formatting
 
-E.g.
-```css
-	header > '~[L:titleHello]'
+_Example:_
+```scss
+	header > '~[L:welcomeId, name]'
+	// same es
+	header > '~[L:"welcomeId", name]'
+```
+```javascript
+$L.extend('en', {
+	welcome: 'Hello {0}!'
+});
+mask.render(template, { name: 'Baz' });
 ```
 
-### Function
+##### Function
 
-**Browser**
+**Browser** @see [examples](examples)
 ```javascript
 	$L('titleHello');
 ```
 
 **Node**
 ```javascript
-	$L(req, 'titleHello');
+	connect
+		.use($L.middleware({
+			support: [ 'en', 'de', 'ru' ],
+			path: '/public/localization/%%.json'
+		});
+	// Aftewards each `req` has `$L` function.
+	// Or use direct
+	$L.fromReq(req)('id');
 ```
 
+### Configuration
 
-### Format
+##### IncludeJS
 
-Interpolates translated string, and inserts dynamic values. 
-
-Patterns for interpolations:
-- Simple, ```{DYNAMIC_ARGUMENT_INDEX}```
-- **Work in progress** With Formatting, like Dates, Numbers: ```{DYNAMIC_ARGUMENT_INDEX:FORMAT_SPECIFICATION}```
-
-Example: 
-```
-// en.json
-{ "bar": "Foo {0}, Bar!" }
-```
-
-_From javascript:_
-```javascript
-$L('bar', 'X') // -> Foo X, Bar!
-```
-
-_From mask:_
-```javascript
-div > "~[L:bar, 'X']"
-
-div > "This example takes value from model by property 'xValue': ~[L: bar, xValue ]"
-```
-
-### Settings
-
-To change localization-files directory, or to change available languages list, use parameters when including the library
+###### Browser
+Load this library with IncludeJS - after defining the list of supported languages and the path to translations,
+it will load also supported translations
 
 ```javascript
-
 include
-	.js('/atma/localization.js?path=/public/i18n/%%.json&langs=de,it,fr')
+	.embed('/atma/localization.js?path=/public/i18n/%%.json&langs=de,it,fr')
 	.done(function(){
-		// ...
-	})
+		// appropriate translationis is loaded and ready to use
+		$L('welcome', 'Baz')
+	});
 	
 ```
+
+###### NodeJS
+Use the `middleware` function so that not all translations are loaded at once, but only with the first incomming request.
+
+
+----
+(c) MIT, Atma.js Project

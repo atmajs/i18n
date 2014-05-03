@@ -44,6 +44,7 @@ var localizer_create;
 		
 		// properties
 		fn.lang = lang;
+		fn.extend = lang_extend;
 		
 		return fn;
 	}
