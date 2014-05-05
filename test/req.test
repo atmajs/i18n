@@ -20,7 +20,7 @@ include
 				function detect(header, url) {
 					return detect_fromRequest({
 						headers: {
-							'Accept-Language': header
+							'accept-language': header
 						},
 						url: url || ''
 					});

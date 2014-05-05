@@ -29,7 +29,7 @@ var detect_fromBrowser,
 				return lang;
 		}
 		
-		langs = req.headers['Accept-Language'];
+		langs = req.headers['accept-language'];
 		if (!langs) 
 			return lang_SUPPORT[0];
 		
