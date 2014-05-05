@@ -1,0 +1,32 @@
+include
+	.inject(
+		'/src/util/rgx.js',
+		'/src/util/lang.js',
+		'/src/util/detect.js'
+	)
+	.done(function(){
+		
+		UTest({
+			
+			'detect simple': function(){
+				lang_SUPPORT = ['en', 'de'];
+				
+				eq_(detect('de'), 'de');
+				eq_(detect('en'), 'en');
+				eq_(detect('ru'), 'en');
+				eq_(detect('ru', '?language=de'), 'de');
+				
+				
+				function detect(header, url) {
+					return detect_fromRequest({
+						headers: {
+							'Accept-Language': header
+						},
+						url: url || ''
+					});
+				}
+			}
+			
+		})
+		
+	})
