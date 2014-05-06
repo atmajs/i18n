@@ -1,14 +1,18 @@
 
-include
-	.js('/lib/localization.js?path=/test/localization/%%.json')
+var req = {
+	headers: {
+		'accept-language': 'en-US,en;q=0.8,ru;q=0.6,de;q=0.4'
+	},
+	url: ''
+};
+
+$L
+	.loadSingle({
+		support: [ 'en', 'de' ],
+		path: '/test/localization/%%.json'
+	}, req)
 	.done(function(){
 		
-		var req = {
-			headers: {
-				'accept-language': 'en-US,en;q=0.8,ru;q=0.6,de;q=0.4'
-			},
-			url: ''
-		};
 		
 		UTest({
 			
