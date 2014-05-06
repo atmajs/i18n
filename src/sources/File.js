@@ -50,7 +50,11 @@
 			return;
 		}
 		
-		include
+		var resource = is_Node
+			? include.instance()
+			: include
+			;
+		resource
 			.ajax(url + '::Data')
 			.done(function(resp) {
 				callback(resp.ajax.Data);

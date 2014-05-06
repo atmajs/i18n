@@ -1,3 +1,7 @@
 test/
 builds/
 src/
+/build.js
+/.travis.yml
+/*.komodoproject
+/.npmignore
