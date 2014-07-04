@@ -24,21 +24,43 @@ Refer to the `atma-formatter`.
 
 ##### Mask Util
 
-- simple,  ```~[L:id]```
-- formatting
+```~[L: ID [,...statements]]```
+```~[L: (statement) [,...statements]]```
 
-_Example:_
-```scss
-	header > '~[L:welcomeId, name]'
-	// same as
-	header > '~[L:"welcomeId", name]'
-```
-```javascript
-$L.extend('en', {
-	welcome: 'Hello {0}!'
-});
-mask.render(template, { name: 'Baz' });
-```
+- Simple:  ```~[L:fooId]```
+- Formatting:
+	
+	_Example:_
+	```scss
+		header > '~[L:welcomeId, name]'
+		// same as
+		header > '~[L:"welcomeId", name]'
+	```
+	```javascript
+	$L.extend('en', {
+		welcome: 'Hello {0}!'
+	});
+	mask.render(template, { name: 'Baz' });
+	```
+	
+- get i18n ID from model:
+	_Example:_
+	```scss
+		var menu = [ 'todo', 'task' ]
+		ul {
+			for (item of menu) {
+				li > '~[L:("m_" + item)]'
+			}
+		}
+	```
+	```javascript
+	$L.extend('en', {
+		m_todo: 'My Todos',
+		m_task: 'My Tasks'
+	});
+	mask.render(template);
+	```
+
 
 ##### Function
 

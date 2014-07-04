@@ -1,26 +1,63 @@
 UTest({
-	'simple: en': function(done){
-		check('en', 'Hello', done);
+	'simple': {
+		'en': function(done){
+			checkSingle('en', 'Hello', done);
+		},
+		'de': function(done){
+			checkSingle('de', 'Hallo', done);
+		},
+		'ru': function(done){
+			checkSingle('ru', 'Привет', done);
+		}
 	},
-	'simple: de': function(done){
-		check('de', 'Hallo', done);
-	},
-	'simple: ru': function(done){
-		
-		check('ru', 'Привет', done);
+	'mask': {
+		'en': function(done){
+			render('mask', 'de', function($doc){
+				
+				$doc
+					.find('.hello')
+					.eq_('text', 'Hallo')
+					
+					.end()
+					.find('.expr')
+					.eq_('text', 'Hallo')
+					
+					.end()
+					.find('.expr-2')
+					.eq_('text', 'Hallo')
+					
+					.end()
+					.find('.date')
+					.eq_('text', 'Jahr: 2014!')
+					
+					.end()
+					.find('.same')
+					.eq_('text', 'none 10?')
+					
+					.end()
+					.find('.same-2')
+					.eq_('text', 'none 10?')
+					;
+				
+				done();
+			})
+		}
 	}
 });
 
-function check(lang, expect, done){
+function checkSingle(lang, expect, done){
+	render('simple', lang, function($doc){
+		$doc.has_('text', expect);
+		done();
+	});
+}
+function render(type, lang, done){
 	UTest
 		.server
-		.request('/examples/simple.html?language=' + lang)
+		.request('/examples/' + type + '.html?language=' + lang)
 		.fail(assert.avoid())
 		.done(function(doc){
 			
-			$(doc)
-				.has_('text', expect);
-				
-			done();
+			setTimeout(done($(doc)), 700);
 		})
 }

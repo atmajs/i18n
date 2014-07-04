@@ -31,12 +31,13 @@
 				
 				this.single(
 					langs[i],
-					pathGlob.replace('%%', langs[i]),
+					pattern.replace('%%', langs[i]),
 					onComplete
 				);
 			}
 			function onComplete(){
-				--count < 0 && callback();
+				if (--count < 0)
+					callback();
 			}
 		}
 	};

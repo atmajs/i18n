@@ -22,15 +22,15 @@ var SourceFactory;
 			while( ++i < imax){
 				
 				config.lang = lang_SUPPORT[i];
-				logger.log(config);
 				this
 					.loadSingle(config)
-					.done(onComplete)
+					.done(onComplete);
 			}
 			
 			var dfr = new Deferred;
 			function onComplete(){
-				--count < 0 && dfr.resolve();
+				if (--count < 0)
+					dfr.resolve();
 			}
 			
 			return dfr;

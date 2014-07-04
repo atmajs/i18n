@@ -29,7 +29,7 @@ var localizer_create;
 				;
 			
 			if (str == null) {
-				console.error('<localization> No translation for', key);
+				console.warn('<localization> No translation for', key);
 				str = key;
 			}
 			

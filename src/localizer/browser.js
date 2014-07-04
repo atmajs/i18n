@@ -1,7 +1,12 @@
-
-function BrowserLocalizer() {
+var BrowserLocalizer;
+(function(){
 	
-	BrowserLocalizer = localizer_create(detect_fromBrowser());
+	BrowserLocalizer = function() {
+		return localizer__.apply(null, arguments);
+	};
 	
-	return BrowserLocalizer.apply(null, arguments);
-}
+	var localizer__ = function(){
+		localizer__ = localizer_create(detect_fromBrowser());
+		return localizer__.apply(null, arguments);
+	};
+}());

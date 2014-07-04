@@ -4,8 +4,8 @@ var L_util_NODE,
 	
 (function(){
 
-	L_util_NODE = function(){
-		return $L.fromReq(ctx.req)(key, model);
+	L_util_NODE = function(key, model, ctx){
+		return localize($L.fromReq(ctx.req), arguments);
 	};
 	
 	L_util_BROWSER = function(){
@@ -23,10 +23,11 @@ var L_util_NODE,
 		var str = args[0].trim(),
 			model = args[1],
 			ctx = args[2],
-			ctr = args[3]
+			ctr = args[4]
 			;
 		
 		switch (str.charCodeAt(0)) {
+			case 40: // (
 			case 34: // "
 			case 39: // '
 				return evalStatements__(str, model, ctx, ctr);

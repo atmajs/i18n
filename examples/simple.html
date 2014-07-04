@@ -21,7 +21,13 @@
 					support: ['en', 'de', 'ru']
 				})
 				.done(function(){
-					document.body.insertAdjacentHTML('beforeend', $L('hello'));
+					append($L('hello'));
+					
+					function append(text) {
+						document
+							.body
+							.insertAdjacentHTML('beforeend', '<p>' + text + '</p>');
+					}
 				});
 			
 			

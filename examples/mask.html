@@ -20,14 +20,18 @@
 				.done(function(){
 					
 					var tmpl = '\
+							.expr > "~[L:\'he\' + suffix]"\
+							.expr-2 > "~[L: (pref + \'llo\')]"\
 							.hello > "~[L:hello]" \
 							.date > "~[L:year, date]" \
-							.same > "~[L:none {0}?, 10]" \
-							.same > "~[L:\'none {0:,0.}?\', x]" \
+							.same > "~[L:\'none {0}?\', 10]" \
+							.same-2 > "~[L:\'none {0:,0.}?\', x]" \
 						',
 						model = {
 							date: new Date(2014, 0, 1),
-							x: 10
+							x: 10,
+							suffix: 'llo',
+							pref: 'he'
 						};
 					
 					var fragment = mask.render(tmpl, model);
