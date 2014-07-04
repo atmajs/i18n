@@ -1,6 +1,8 @@
 test/
 builds/
 src/
+examples/
+
 /build.js
 /.travis.yml
 /*.komodoproject

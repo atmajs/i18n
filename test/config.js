@@ -11,6 +11,11 @@ module.exports = {
 		examples: {
 			exec: 'dom',
 			tests: 'test/examples/**.test'
+		},
+		
+		examples_node: {
+			exec: 'node',
+			tests: 'test/examples-node/**.test'
 		}
 	}
 }

@@ -5,7 +5,7 @@
         "name": "Alex Kit",
         "email": "alex.kit@atmajs.com"
     },
-    "version": "0.0.64",
+    "version": "0.0.65",
     "main": "./lib/localization.js",
     "repository": {
         "type": "git",
@@ -18,7 +18,9 @@
         "MIT"
     ],
     "devDependencies": {
-        "atma": "latest"
+        "atma": "latest",
+        "atma-libs": ">0.0.0",
+        "supertest": "~0.13.0"
     },
     "dependencies": {
         "atma-formatter": "latest"

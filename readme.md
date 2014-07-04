@@ -1,16 +1,16 @@
 ### Localization Module (_NodeJS and Browser_)
 ----
 [![Build Status](https://travis-ci.org/atmajs/i18n.svg?branch=master)](https://travis-ci.org/atmajs/i18n)
-
+[![NPM version](https://badge.fury.io/js/atma-i18n.svg)](http://badge.fury.io/js/atma-i18n)
 
 - [MaskJS](https://github.com/atmajs/MaskJS) Localization Util
 - Localization Function
 
 #### Node.js
-Resolves language from current request _(middleware)_
+_Resolve language from the current request(middleware)_
 
 #### Browser
-Resolves language from ```navigator.language``` or ```location.query ('/?language=en') ```
+_Resolve language from ```navigator.language``` or ```location.query ('/?language=en') ```_
 
 >  If the language is not supported, the default one is taken.
 
@@ -24,8 +24,8 @@ Refer to the `atma-formatter`.
 
 ##### Mask Util
 
-```~[L: ID [,...statements]]```
-```~[L: (statement) [,...statements]]```
+```~[L: ID [,...expressions]]```
+```~[L: (expression) [,...expressions]]```
 
 - Simple:  ```~[L:fooId]```
 - Formatting:
