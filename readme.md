@@ -2,6 +2,7 @@
 ----
 [![Build Status](https://travis-ci.org/atmajs/i18n.svg?branch=master)](https://travis-ci.org/atmajs/i18n)
 [![NPM version](https://badge.fury.io/js/atma-i18n.svg)](http://badge.fury.io/js/atma-i18n)
+[![Bower version](https://badge.fury.io/bo/atma-i18n.svg)](http://badge.fury.io/bo/atma-i18n)
 
 - [MaskJS](https://github.com/atmajs/MaskJS) Localization Util
 - Localization Function
