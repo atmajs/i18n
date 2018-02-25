@@ -3,6 +3,7 @@ import { detect_fromBrowser } from "../util/detect";
 import { localizer_create } from "./Factory";
 import config, { IOptions } from "../Config";
 import { SourceFactory } from "../sources/SourceFactory";
+import { lang_extend } from "../util/lang";
 
 let localizer: ILocalizer;
 
@@ -14,6 +15,8 @@ export const BrowserLocalizer: ILocalizer = <any> function(...args) {
 };
 
 BrowserLocalizer.loadSingle = SourceFactory.loadSingle;
+BrowserLocalizer.lang = 'default';
+BrowserLocalizer.extend = lang_extend;
 
 BrowserLocalizer.config = function (opts: IOptions) {
 	if (opts.lang) {

@@ -11,6 +11,7 @@ export const NodeLocalizer: ILocalizer = <any> function(...args) {
 };
 
 NodeLocalizer.loadSingle = SourceFactory.loadSingle;
+NodeLocalizer.lang = 'default';
 NodeLocalizer.extend = lang_extend;
 
 NodeLocalizer.config = function (opts: IOptions) {
