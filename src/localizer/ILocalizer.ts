@@ -6,6 +6,8 @@ export interface ILocalizer {
     (...args: any[]): string
 
     extend (translations: Translations): this
+    extend (isoCode: string, translations: Translations): this
+
     config (opts: IOptions): this
 
     lang: string

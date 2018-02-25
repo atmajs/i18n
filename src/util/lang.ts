@@ -9,16 +9,21 @@ export function lang_contains(isoCode) {
 };
 
 
-export function lang_extend(isoCode: string, translations: Translations) {
-	if (translations == null)
-		return;
-
-	if (languages[isoCode] == null) {
-		languages[isoCode] = translations;
-		return;
+export function lang_extend(mix: string | Translations, translations?: Translations) {
+	if (typeof mix === 'string') {
+		let isoCode = mix;
+		if (languages[isoCode] == null) {
+			languages[isoCode] = translations;
+			return;
+		}
+		obj_extend(languages[isoCode], translations);
+		return this;
 	}
-
-	obj_extend(languages[isoCode], translations);
+	if (typeof this.lang === 'string') {
+		lang_extend(this.lang, translations);
+		return this;
+	}
+	return this;
 };
 
 

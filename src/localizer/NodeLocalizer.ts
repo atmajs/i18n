@@ -3,6 +3,7 @@ import { detect_fromBrowser, detect_fromRequest } from "../util/detect";
 import { localizer_create } from "./Factory";
 import config, { IOptions } from "../Config";
 import { SourceFactory } from "../sources/SourceFactory";
+import { lang_extend } from "../util/lang";
 
 export const NodeLocalizer: ILocalizer = <any> function(...args) {
 	console.warn('<localizer> In node env. please call $L.fromReq(req)("someKey")');
@@ -10,6 +11,7 @@ export const NodeLocalizer: ILocalizer = <any> function(...args) {
 };
 
 NodeLocalizer.loadSingle = SourceFactory.loadSingle;
+NodeLocalizer.extend = lang_extend;
 
 NodeLocalizer.config = function (opts: IOptions) {
 	if (opts.lang) {
@@ -21,16 +23,6 @@ NodeLocalizer.config = function (opts: IOptions) {
 	return this;
 };
 
-
-// namespace Utils {
-// 	export function create (lang: string) {
-// 		localizer = localizer_create(lang);
-// 		BrowserLocalizer.lang = localizer.lang;
-// 		BrowserLocalizer.extend = localizer.extend;
-		
-// 		config.lang = lang;
-// 	}
-// }
 
 NodeLocalizer.fromReq = function(req: Request){	
 	if (req.$L !== void 0) 

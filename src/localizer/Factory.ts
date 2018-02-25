@@ -16,7 +16,6 @@ export function localizer_create(isoCode: string): ILocalizer {
 
 // private
 
-
 function localizer(isoCode: string): ILocalizer {
 
     let translation = languages[isoCode];
@@ -44,5 +43,6 @@ function localizer(isoCode: string): ILocalizer {
 
     // properties
     fn.lang = isoCode;    
+    fn.extend = lang_extend;
     return fn;
 }
