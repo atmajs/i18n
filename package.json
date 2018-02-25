@@ -6,27 +6,131 @@
         "email": "alex.kit@atmajs.com"
     },
     "version": "0.0.71",
-    "main": "./lib/localization.js",
+    "main": "./lib/localization.node.js",
+    "mainBrowser": "./lib/localization.dom.js",
     "repository": {
         "type": "git",
         "url": "https://github.com/atmajs/i18n.git"
     },
     "bugs": {
-        "url": "https://github.com/atmajs/MaskJS/issues"
+        "url": "https://github.com/atmajs/i18n/issues"
     },
     "licenses": [
         "MIT"
     ],
     "devDependencies": {
-        "atma": "latest",
+        "@types/node": "^8.5.10",
+        "app-bundler": "0.0.43",
+        "atma": "^0.10.90",
+        "atma-io-middleware-condcomments": "^1.1.25",
+        "atma-io-middleware-importer": "^1.1.30",
         "atma-libs": ">0.0.0",
+        "atma-loader-ts": "^1.0.0",
+        "dts-bundle": "^0.7.3",
+        "includejs": "^0.12.66",
+        "maskjs": "^0.64.33",
         "supertest": "~0.13.0"
     },
     "dependencies": {
         "atma-formatter": "latest"
     },
+    "app-bundler": {
+        "apps": {
+            "browser": {
+                "file": "src/export.ts",
+                "outputMain": "lib/localization.dom.js",
+                "settings": {
+                    "atma-io-middleware-condcomments": {
+                        "defines": {
+                            "BROWSER": true,
+                            "NODE": false
+                        }
+                    }
+                }
+            },
+            "node": {
+                "file": "src/export.ts",
+                "outputMain": "lib/localization.node.js",
+                "settings": {
+                    "atma-io-middleware-condcomments": {
+                        "defines": {
+                            "BROWSER": false,
+                            "NODE": true
+                        }
+                    }
+                }
+            }
+        },
+        "common": {
+            "package": {
+                "module": "commonjs",
+                "moduleName": "$L",
+                "moduleWrapper": "umd",
+                "commonjs": {
+                    "output": "simplified"
+                }
+            },
+            "defaultExtensions": {
+                "js": "ts"
+            },
+            "middlewares": {
+                "ts": [
+                    "atma-io-middleware-condcomments:read",
+                    "atma-loader-ts:read"
+                ]
+            },
+            "dynamicDependencies": [
+                "atma-formatter",
+                "atma-io",
+                "maskjs",
+                "includejs"
+            ],
+            "settings": {
+                "atma-io-middleware-condcomments": {
+                    "defines": {
+                        "BROWSER": true,
+                        "NODE": false
+                    }
+                }
+            }
+        }
+    },
+    "atma": {
+        "plugins": [
+            "atma-loader-ts",
+            "atma-io-middleware-condcomments"
+        ],
+        "settings": {
+            "include": {
+                "amd": true,
+                "extentionDefault": {
+                    "js": "ts"
+                }
+            },
+            "atma-loader-ts": {
+                "extensions": [
+                    "ts",
+                    "test"
+                ],
+                "typescript": {
+                    "compilerOptions": {
+                        "module": "CommonJS",
+                        "#if TEST": {
+                        "module": "AMD"
+                        },
+                        "sourceMap": false
+                    }
+                }
+            },
+            "atma-io-middleware-condcomments": {}
+        }
+    },
     "scripts": {
-        "examples_prepair": "cd examples && npm install",
-        "test": "atma test"
+        "test": "atma test",
+        "build-only": "app-bundler",
+        "build": "app-bundler && npm run build-dts",
+        "watch": "app-bundler --watch",
+        "server": "atma server",
+        "build-dts": "tsc -p . & atma custom tools/build-dts"
     }
 }

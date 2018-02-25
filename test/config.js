@@ -3,7 +3,7 @@ module.exports = {
 		node: {
 			exec: 'node',
 			env: [
-				'lib/localization.js::$L'
+				'lib/localization.node.js::$L'
 			],
 			tests: 'test/*.test'
 		},

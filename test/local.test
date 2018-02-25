@@ -1,38 +1,36 @@
-
-var req = {
+import $L from '../src/L'
+var req = <Request><any>{
 	headers: {
 		'accept-language': 'en-US,en;q=0.8,ru;q=0.6,de;q=0.4'
 	},
 	url: ''
 };
 
-$L
-	.loadSingle({
-		support: [ 'en', 'de' ],
-		path: '/test/localization/%%.json'
-	}, req)
-	.done(function(){
-		
-		
-		UTest({
-			
-			'simple': function(){
-				
-				eq_($L.fromReq(req)('foo'), 'Bar');
-				
-				is_(req.$L, 'Function');
-				eq_(req.$L, $L.fromReq(req));
-				
-				eq_($L.fromReq(req)('foo-num', 10), 'Bar 10!');
-			},
-			
-			'format': function(){
-				var str = 'Date {0,5:yyyy}, string: {1}',
-					date = new Date(2014, 0 , 1),
-					text = 'Text';
-					
-				var val = $L.fromReq(req)(str, date, text);
-				eq_(val, 'Date  2014, string: Text');
-			}
-		});
-	});
+UTest({
+
+	$before() {
+		return $L.loadSingle({
+			support: ['en', 'de'],
+			path: '/test/localization/%%.json'
+		}, req);
+	},
+
+	'simple'() {
+
+		eq_($L.fromReq(req)('foo'), 'Bar');
+
+		is_(req.$L, 'Function');
+		eq_(req.$L, $L.fromReq(req));
+
+		eq_($L.fromReq(req)('foo-num', 10), 'Bar 10!');
+	},
+
+	'format'() {
+		var str = 'Date {0,5:yyyy}, string: {1}',
+			date = new Date(2014, 0, 1),
+			text = 'Text';
+
+		var val = $L.fromReq(req)(str, date, text);
+		eq_(val, 'Date  2014, string: Text');
+	}
+});

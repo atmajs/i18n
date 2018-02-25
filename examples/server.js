@@ -1,9 +1,8 @@
-var $L = require('../lib/localization.js'),
+var $L = require('../lib/localization.node.js'),
 	middleware = $L.middleware({
 		support: [ 'en', 'de', 'ru' ],
-		path: 'examples/lang/%%.json'
+		path: '/examples/lang/%%.json'
 	});
-
 
 module.exports = require('http')
 		.createServer(function(req, res){

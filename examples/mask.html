@@ -11,13 +11,14 @@
 			</h4>
 		</p>
 		
-		<script src='node_modules/atma-libs/browser/globals-dev.js'></script>
+		<script src='../node_modules/includejs/lib/include.js'></script>
+		<script src='../node_modules/maskjs/lib/mask.js'></script>
 		<script src='../node_modules/atma-formatter/lib/format.js'></script>
 		<script>
 			
 			include
-				.js('../lib/localization.js?path=/examples/lang/%%.json&support=en,ru,de')
-				.done(function(){
+				.js('../lib/localization.dom.js?path=/examples/lang/%%.json&support=en,ru,de')
+				.done(() => setTimeout(function(){
 					
 					var tmpl = '\
 							.expr > "~[L:(\'he\' + suffix)]"\
@@ -36,7 +37,7 @@
 					
 					var fragment = mask.render(tmpl, model);
 					document.body.appendChild(fragment);
-				});
+				}, 0));
 		</script>
 	</body>
 </html>

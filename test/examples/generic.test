@@ -58,6 +58,6 @@ function render(type, lang, done){
 		.fail(assert.avoid())
 		.done(function(doc){
 			
-			setTimeout(done($(doc)), 700);
+			setTimeout(() => done($(doc)), 500);
 		})
 }
