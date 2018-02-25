@@ -32,5 +32,12 @@ UTest({
 
 		var val = $L.fromReq(req)(str, date, text);
 		eq_(val, 'Date  2014, string: Text');
+	},
+
+	'extend' () {
+		let l  = $L.fromReq(req);
+		l.extend({ fooxy: 'IFoo'});
+
+		eq_(l('fooxy'), 'IFoo')
 	}
 });

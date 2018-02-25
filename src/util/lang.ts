@@ -19,11 +19,15 @@ export function lang_extend(mix: string | Translations, translations?: Translati
 		obj_extend(languages[isoCode], translations);
 		return this;
 	}
-	if (typeof this.lang === 'string') {
-		lang_extend(this.lang, translations);
-		return this;
-	}
+
+	let lang = typeof this.lang === 'string' && this.lang.length > 0 
+		? this.lang 
+		: 'default'
+		;
+	
+	lang_extend(lang, mix);
 	return this;
+
 };
 
 

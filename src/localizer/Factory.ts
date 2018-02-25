@@ -28,7 +28,6 @@ function localizer(isoCode: string): ILocalizer {
     }
     
     const fn: ILocalizer = <any> function (key: string, ...args: any[]) {
-
         let str = translation[key] || defaultTranslation[key];
         if (str == null) {
             console.warn('<localization> No translation for', key);

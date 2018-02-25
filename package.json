@@ -5,7 +5,7 @@
         "name": "Alex Kit",
         "email": "alex.kit@atmajs.com"
     },
-    "version": "0.5.2",
+    "version": "0.5.3",
     "types": "./lib/localization.d.ts",
     "main": "./lib/localization.node.js",
     "mainBrowser": "./lib/localization.dom.js",
