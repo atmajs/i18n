@@ -1,9 +1,10 @@
 test/
-builds/
 src/
 examples/
+tools/
+ts-temp/
 
-/build.js
+/tsconfig.json
 /.travis.yml
-/*.komodoproject
 /.npmignore
+/.gitignore
