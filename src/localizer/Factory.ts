@@ -21,11 +21,11 @@ function localizer(isoCode: string): ILocalizer {
 
     let translation = languages[isoCode];
     if (translation == null) {
-        languages[isoCode] = {};
+        translation = languages[isoCode] = Object.create(null);
     }
     let defaultTranslation = languages['default'];
     if (defaultTranslation == null) {
-        languages['default'] = {};
+        defaultTranslation = languages['default'] = Object.create(null);
     }
     
     const fn: ILocalizer = <any> function (key: string, ...args: any[]) {
