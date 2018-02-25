@@ -3,6 +3,7 @@ import languages from '../Languages'
 import { ILocalizer } from './ILocalizer';
 import { lang_extend } from '../util/lang';
 import { format } from '../global'
+import { obj_getProperty } from '../util/obj';
 
 const _cache: { [key: string]: ILocalizer } = {};
 
@@ -29,6 +30,9 @@ function localizer(isoCode: string): ILocalizer {
     
     const fn: ILocalizer = <any> function (key: string, ...args: any[]) {
         let str = translation[key] || defaultTranslation[key];
+        if (str == null && key.indexOf('.') > -1) {
+            str = obj_getProperty(translation, key) || obj_getProperty(defaultTranslation, key);
+        }
         if (str == null) {
             console.warn('<localization> No translation for', key);
             str = key;
